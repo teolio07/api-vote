@@ -20,8 +20,6 @@ const port = process.env.PORT || 4002
 app.use(express.json());
 
 
-app.get('/',(req,res)=>{})
-
 //------router
 apiRouter(app)
 
