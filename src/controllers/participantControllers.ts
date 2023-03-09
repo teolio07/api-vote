@@ -17,4 +17,13 @@ export class participantController{
           res.json(resolve)
         }) 
       }
+
+      createParticipant(req: any,res: { json: (arg0: Participant_dto) => void; }){
+        
+        let participantCreate = participant.createParticipant();
+        participantCreate.then((resolve)=>{
+          res.json(resolve)
+        }) 
+      }
+
 }
