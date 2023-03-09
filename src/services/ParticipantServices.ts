@@ -13,14 +13,18 @@ export class ParticipantServices implements participant_interface{
     return participant
   }
 
-  async createParticipant():Promise<Participant_dto> {
+  async createParticipant(participantObj:Participant_dto):Promise<Participant_dto> {
     let participant = new participantModel();
-    participant.name = "teo";
-    participant.age = 12;
+    participant.name = participantObj.name;
+    participant.image = participantObj.image;
+    participant.votes = 0;
     let saveParcipant = (await participant.save() as Participant_dto); 
-
     return saveParcipant;
   }
+
+  
+
+  
 
 
 }

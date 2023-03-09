@@ -1,4 +1,5 @@
 export type Participant_dto = {
     name:string,
-    age:number
+    image:string,
+    votes:number
 }

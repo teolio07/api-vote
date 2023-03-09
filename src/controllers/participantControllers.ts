@@ -10,7 +10,7 @@ export class participantController{
         })   
       }
 
-      getParticipant(req: any,res: { json: (arg0: Participant_dto[]) => void; }){
+      getParticipant(req: any,res: { json: (arg0: Participant_dto[]) => void}){
         const {id} = req.params
         let get_participant = participant.getParticipant(id);
         get_participant.then((resolve)=>{
@@ -18,12 +18,15 @@ export class participantController{
         }) 
       }
 
-      createParticipant(req: any,res: { json: (arg0: Participant_dto) => void; }){
-        
-        let participantCreate = participant.createParticipant();
+      createParticipant(req: any,res: { json: (arg0: Participant_dto) => void, status: (state:number)=>void}){
+        let participantObj = req.body;
+        let participantCreate = participant.createParticipant(participantObj);
         participantCreate.then((resolve)=>{
+          res.status(200)
           res.json(resolve)
         }) 
       }
+
+      
 
 }

@@ -15,9 +15,12 @@ const app = express();
 const port = process.env.PORT || 4002
 
 
+
 //uses
 app.use(express.json());
 
+
+app.get('/',(req,res)=>{})
 
 //------router
 apiRouter(app)

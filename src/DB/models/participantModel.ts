@@ -3,7 +3,8 @@ import { participant_interface } from "../../interfaces/participant_interface";
 
 const participantSchema = new Schema({
     name:String,
-    age:Number
+    image:String,
+    votes:Number
 })
 
 export const participantModel = mongoose.model('Participant', participantSchema);

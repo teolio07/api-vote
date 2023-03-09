@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Uri = process.env.URI;
+const Uri = process.env.URI || 'mongodb+srv://nodejs-databases:mono19teo@cluster0.08d2x.mongodb.net/votes?retryWrites=true&w=majority';
 if(Uri){
     mongoose.connect(Uri)
     .then((resolve)=>{
