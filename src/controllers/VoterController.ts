@@ -29,6 +29,7 @@ class VoterController {
         let verification = _voterService.documentVerify(doc);
         verification.then((resolve)=>{
             let castingResolve = (resolve as typeBoom)
+            console.log(castingResolve)
             if(castingResolve.isBoom == true){
                 res.status(422);
                 res.json(castingResolve);
