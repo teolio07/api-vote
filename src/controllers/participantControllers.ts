@@ -1,24 +1,32 @@
+import { typeBoom } from "../Dto/boom_tdo";
 import { Participant_dto } from "../Dto/participant_dto";
 import { ParticipantServices } from "../services/ParticipantServices";
 const participant = new ParticipantServices();
 
 export class participantController{
-    getParticipants(req: any,res: { json: (arg0: Participant_dto[]) => void; }){
+    getParticipants(req: any,res: { json: (arg0: Participant_dto[] | typeBoom) => void; }){
+    
+      try{
         let get_participants = participant.getParticipants();
         get_participants.then((resolve)=>{
           res.json(resolve)
-        })   
+        })  
       }
+      catch(error){
+        console.log(error);
+      } 
+    }
 
-      getParticipant(req: any,res: { json: (arg0: Participant_dto[]) => void}){
+      getParticipant(req: any,res: { json: (arg0: Participant_dto[] | typeBoom) => void}){
         const {id} = req.params
         let get_participant = participant.getParticipant(id);
         get_participant.then((resolve)=>{
           res.json(resolve)
+          console.log(resolve)
         }) 
       }
 
-      createParticipant(req: any,res: { json: (arg0: Participant_dto) => void, status: (state:number)=>void}){
+      createParticipant(req: any,res: { json: (arg0: Participant_dto | typeBoom) => void, status: (state:number)=>void}){
         let participantObj = req.body;
         let participantCreate = participant.createParticipant(participantObj);
         participantCreate.then((resolve)=>{
