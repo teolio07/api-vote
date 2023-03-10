@@ -8,9 +8,11 @@ class VoterController {
         vote.then((resolve)=>{
             let castingResolve = (resolve as typeBoom)
             if(castingResolve.isBoom == true){
-                res.json(castingResolve)
+                res.status(422);
+                res.json(castingResolve);
             }else{
-                res.json({message:"Voto exito"})
+                res.status(201);
+                res.json({message:"Voto exito"});
             }
         })
     }

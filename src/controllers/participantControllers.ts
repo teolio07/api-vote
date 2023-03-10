@@ -4,12 +4,19 @@ import { ParticipantServices } from "../services/ParticipantServices";
 const participant = new ParticipantServices();
 
 export class participantController{
-    getParticipants(req: any,res: { json: (arg0: Participant_dto[] | typeBoom) => void; }){
+    getParticipants(req: any,res: { json: (arg0: Participant_dto[] | typeBoom) => void; status: (state:number)=>void}){
     
       try{
         let get_participants = participant.getParticipants();
         get_participants.then((resolve)=>{
-          res.json(resolve)
+          let castingResolve = (resolve as typeBoom)
+          if(castingResolve.isBoom == true){
+              res.status(422);
+              res.json(castingResolve);
+          }else{
+              res.status(200)
+              res.json(resolve)
+          }
         })  
       }
       catch(error){
@@ -17,12 +24,18 @@ export class participantController{
       } 
     }
 
-      getParticipant(req: any,res: { json: (arg0: Participant_dto[] | typeBoom) => void}){
+      getParticipant(req: any,res: { json: (arg0: Participant_dto[] | typeBoom) => void; status: (state:number)=>void}){
         const {id} = req.params
         let get_participant = participant.getParticipant(id);
         get_participant.then((resolve)=>{
-          res.json(resolve)
-          console.log(resolve)
+          let castingResolve = (resolve as typeBoom)
+          if(castingResolve.isBoom == true){
+              res.status(422);
+              res.json(castingResolve);
+          }else{
+              res.status(200)
+              res.json(resolve)
+          }
         }) 
       }
 
@@ -30,8 +43,14 @@ export class participantController{
         let participantObj = req.body;
         let participantCreate = participant.createParticipant(participantObj);
         participantCreate.then((resolve)=>{
-          res.status(200)
-          res.json(resolve)
+          let castingResolve = (resolve as typeBoom)
+          if(castingResolve.isBoom == true){
+              res.status(422);
+              res.json(castingResolve);
+          }else{
+              res.status(201)
+              res.json(resolve)
+          }
         }) 
       }
 
