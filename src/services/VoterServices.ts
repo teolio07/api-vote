@@ -1,19 +1,45 @@
 import boom from '@hapi/boom';
 
 import { participantModel } from "../DB/models/participantModel";
+import { voterModel } from '../DB/models/voterModel';
+
 import { Participant_dto } from "../Dto/participant_dto";
+import { voter_dto } from '../Dto/voter_dto';
+
 import voter_interface from "../interfaces/voter_interface";
 
 class VoterServices implements voter_interface{
-    async vote(id:string,addVote:number){
+
+    async documentVerify(document:string){
         try{
-            let participant:Participant_dto[] = (await participantModel.find({_id:id}) as Participant_dto[]);
-            let allVotes = (participant[0].votes + addVote);
-            let voted:Participant_dto = (await participantModel.findByIdAndUpdate(id,{votes:allVotes}) as Participant_dto);
-            return voted;
+            let _verificationVoter:voter_dto[] = (await voterModel.find({doc:document}) as voter_dto[])
+            return _verificationVoter;
+        
         }
         catch(error){
-            return (boom.badData("Error al votar no existe el participante"));
+            console.log(error)
+            return (boom.notFound("No estas registrado"))
+        }
+    }
+
+    async vote(id:string,addVote:number,doc:string){
+        try{
+            let participant:Participant_dto[] = (await participantModel.find({_id:id}) as Participant_dto[]);
+            let _verificationVoter:voter_dto[] = (await voterModel.find({document:doc}) as voter_dto[])
+
+            if(_verificationVoter[0].status == true){
+                let allVotes = (participant[0].votes + addVote);
+                let ChangeVoterStatus = (await voterModel.findOneAndUpdate({document:doc},{status:false}) as voter_dto[])
+                let voted:Participant_dto = (await participantModel.findByIdAndUpdate(id,{votes:allVotes}) as Participant_dto);
+                return voted;
+            }else{
+                return (boom.notFound("Error no puedes volver a votar"));
+            }
+
+        }
+        catch(error){
+            console.log(error)
+            return (boom.notFound("Error no se pudo realizar el voto, vuelve a intentarlo"));
         }
     }
 }

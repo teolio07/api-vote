@@ -1,3 +1,4 @@
 export type voter_dto = {
-    message:string
+    document:string,
+    status:boolean
 }
