@@ -22,7 +22,7 @@ class VoterServices implements voter_interface{
 
     async documentVerify(document:string){
         try{
-            let _verificationVoter:voter_dto[] = (await voterModel.find({doc:document}) as voter_dto[])
+            let _verificationVoter:voter_dto[] = (await voterModel.findOne({document:document}) as voter_dto[])
             return _verificationVoter;
         
         }
