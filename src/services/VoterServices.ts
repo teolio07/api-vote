@@ -2,6 +2,7 @@ import boom from '@hapi/boom';
 
 import { participantModel } from "../DB/models/participantModel";
 import { voterModel } from '../DB/models/voterModel';
+import { typeBoom } from '../Dto/boom_tdo';
 
 import { Participant_dto } from "../Dto/participant_dto";
 import { voter_dto } from '../Dto/voter_dto';
@@ -9,6 +10,15 @@ import { voter_dto } from '../Dto/voter_dto';
 import voter_interface from "../interfaces/voter_interface";
 
 class VoterServices implements voter_interface{
+
+    async createVoter(voterObj:voter_dto):Promise<voter_dto | typeBoom>{
+        let voterCreate = new voterModel();
+        voterCreate.document = voterObj.document;
+        voterCreate.status = voterObj.status
+        let voter = (await voterCreate.save() as voter_dto)
+        return voter
+    }
+
 
     async documentVerify(document:string){
         try{

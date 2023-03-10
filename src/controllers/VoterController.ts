@@ -3,6 +3,24 @@ import { voter_dto } from "../Dto/voter_dto";
 import VoterServices from "../services/VoterServices";
 
 class VoterController {
+
+    createVoter(req:any, res:{json:(arg0:voter_dto | typeBoom) => void, status:(state:number)=>void}){
+        let _voterService = new VoterServices();
+        let voterObj = req.body
+
+        let createVoter = _voterService.createVoter(voterObj)
+        createVoter.then((resolve)=>{
+            let castingResolve = (resolve as typeBoom)
+            if(castingResolve.isBoom == true){
+                res.status(422);
+                res.json(castingResolve);
+            }else{
+                let castingResolve = (resolve as voter_dto)
+                res.status(201);
+                res.json(castingResolve);
+            }
+        })
+    }
     
     verifyDocument(req:any, res:{json:(arg0:voter_dto[] | typeBoom) => void, status:(state:number)=>void}){
         let _voterService = new VoterServices();
