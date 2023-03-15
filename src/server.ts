@@ -31,7 +31,7 @@ var corsOptions = {
     }
   }
 }
-app.use(cors({origin:'https://proyecto-votacion-sena-frontend.pages.dev'}))
+app.use(cors())
 
 
 
