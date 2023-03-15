@@ -21,7 +21,7 @@ app.use(express.json());
 
 
 //cors
-var whitelist = ['http://example1.com', 'http://example2.com','http://localhost']
+var whitelist = ['http://example1.com', 'http://example2.com','http://localhost','https://proyecto-votacion-sena-frontend.pages.dev']
 var corsOptions = {
   origin: function (origin:any, callback:any) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
