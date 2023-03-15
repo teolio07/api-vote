@@ -23,9 +23,9 @@ class VoterServices implements voter_interface{
     async documentVerify(document:string):Promise<voter_dto[] | typeBoom>{
         try{
             let _verificationVoter:voter_dto[] = (await voterModel.findOne({document:document}) as voter_dto[])
-/*             if(_verificationVoter == null){
+            if(_verificationVoter == null){
                 return (boom.notFound("No estas registrado"));
-            } */
+            }
             return _verificationVoter;
         
         }
